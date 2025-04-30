@@ -1,0 +1,56 @@
+import reservationModels from "../models/reservationModels.js";
+const createReservation = async (req, res) => {
+  try {
+    console.log(req.body);
+    const { name, email, phone, date, time, guests } = req.body;
+    if (!name || !email || !phone || !date || !time || !guests) {
+      return res.json({
+        success: false,
+        message: "Please fill all the fields",
+      });
+    }
+    const newReservation = new reservationModels({
+      name,
+      email,
+      phone,
+      date,
+      time,
+      guests,
+    });
+    await newReservation.save();
+
+    res.json({
+        success: true,
+        message: "Reservation created successfully",
+        reservation: newReservation,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({ message: error.message });
+  }
+};
+
+const getAllReservations = async (req, res) => {
+  try {
+    const reservations = await reservationModels.find();
+    res.json({reservations });
+  } catch (error) {
+    console.error(error);
+    res.json({ message: "Error fetching reservations" });
+  }
+};
+
+
+const deleteReservation = async (req, res) => {
+    try {
+        const { id } = req.params;
+        await reservationModels.findByIdAndDelete(id);
+        res.json({ message: "Reservation deleted successfully" });
+    } catch (error) {
+        console.error(error);
+        res.json({ message: "Error deleting reservation" });
+        
+    }
+};
+
+export { createReservation, getAllReservations, deleteReservation };

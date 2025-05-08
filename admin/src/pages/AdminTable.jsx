@@ -6,6 +6,19 @@ import { MdDeleteForever } from "react-icons/md";
 const AdminTable = () => {
   const [reservations, setReservations] = useState([]);
 
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(backendUrl + `/api/reservations/delete/${id}`);
+      toast.success("Reservation deleted successfully!");
+  
+      // Update the reservations state by filtering out the deleted reservation
+      setReservations(reservations.filter((reservation) => reservation._id !== id));
+    } catch (error) {
+      console.error("Error deleting reservation:", error.message);
+      toast.error("Failed to delete reservation.");
+    }
+  };
+
   useEffect(() => {
     const fetchReservations = async () => {
       try {
@@ -62,10 +75,9 @@ const AdminTable = () => {
                   <td className="py-3 px-6 text-gray-700">{res.time}</td>
                   <td className="py-3 px-6 text-gray-700">{res.guests}</td>
                   <td className="py-3 px-0">
-                    <button
-                      className="flex items-center gap-2 text-white cursor-pointer font-medium bg-blue-600 px-3 py-1 rounded-lg transition duration-200"
-                      onClick={() => console.log("Delete reservation:", res.id)}
-                    >
+                    <button 
+                    onClick={() => handleDelete(res._id)}
+                     className="flex items-center gap-2 text-white cursor-pointer font-medium bg-blue-600 px-3 py-1 rounded-lg transition duration-200">
                       <MdDeleteForever size={20} className="text-red-400" />
                       Delete
                     </button>

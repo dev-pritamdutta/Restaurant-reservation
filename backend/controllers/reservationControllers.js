@@ -20,9 +20,9 @@ const createReservation = async (req, res) => {
     await newReservation.save();
 
     res.json({
-        success: true,
-        message: "Reservation created successfully",
-        reservation: newReservation,
+      success: true,
+      message: "Reservation created successfully",
+      reservation: newReservation,
     });
   } catch (error) {
     console.log(error);
@@ -33,24 +33,29 @@ const createReservation = async (req, res) => {
 const getAllReservations = async (req, res) => {
   try {
     const reservations = await reservationModels.find();
-    res.json({reservations });
+    res.json({ reservations });
   } catch (error) {
     console.error(error);
     res.json({ message: "Error fetching reservations" });
   }
 };
 
-
 const deleteReservation = async (req, res) => {
-    try {
-        const { id } = req.params;
-        await reservationModels.findByIdAndDelete(id);
-        res.json({ message: "Reservation deleted successfully" });
-    } catch (error) {
-        console.error(error);
-        res.json({ message: "Error deleting reservation" });
-        
+  try {
+    const { id } = req.params;
+    // Find and delete the reservation
+    const deletedReservation = await reservationModels.findByIdAndDelete(id);
+
+    if (!deletedReservation) {
+      res.json({ message: "Reservation not found" });
+      return;
     }
+
+    res.json({ message: "Reservation deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.json({ message: "Error deleting reservation" });
+  }
 };
 
 export { createReservation, getAllReservations, deleteReservation };

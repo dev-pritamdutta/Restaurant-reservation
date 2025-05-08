@@ -4,7 +4,10 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Footer from "./Components/Footer";
 
+export const backendUrl = "http://localhost:4000";
 const App = () => {
+
+  
   return (
     <div className="bg-white text-black">
       <Navbar />

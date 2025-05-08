@@ -1,5 +1,8 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { FaFacebook, FaTwitter, FaInstagram, FaReddit } from "react-icons/fa";
+import { backendUrl } from "../App";
+import { toast } from "react-toastify";
 
 const ReservationForm = () => {
   const [formData, setFormData] = useState({
@@ -26,9 +29,24 @@ const ReservationForm = () => {
 
   const guestOptions = Array.from({ length: 10 }, (_, i) => i + 1);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Reservation Data:", formData);
+    try {
+      await axios.post(backendUrl + "/api/reservations/create", formData);
+      toast.success("Reservation made successfully!");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        date: new Date().toISOString().slice(0, 10),
+        time: "",
+        guests: "",
+      })
+    } catch (error) {
+      console.error("Error making reservation:", error);
+      toast.error("Failed to make reservation. Please try again.");
+    }
   };
 
   return (

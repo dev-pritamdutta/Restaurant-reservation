@@ -46,18 +46,18 @@ const listProducts = async (req, res) => {
 };
 
 const removeProduct = async (req, res) => {
-
+  const { id } = req.params; // Extract the product ID from the route parameter
   try {
-    await productModel.findByIdAndDelete(req.body._id);
+    const deletedProduct = await productModel.findByIdAndDelete(id); // Use the ID to delete the product
+    if (!deletedProduct) {
+      return res.json({ success: false, message: "Product not found" });
+    }
     res.json({ success: true, message: "Product removed successfully" });
-    
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
-    
+    res.json({ success: false, message: "Server error", error: error.message });
   }
 };
-
 const singelProduct = async (req, res) => {};
 
 export { addProduct, listProducts, removeProduct, singelProduct };

@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaPlus, FaList, FaCalendarAlt, FaSignOutAlt } from "react-icons/fa";
 
-const Sidebar = () => {
+const Sidebar = ({ setToken }) => {
   return (
     <div className="w-64 bg-gray-800 h-screen text-gray-200">
       <h2 className="text-center py-5 border-b border-gray-700 text-xl font-semibold">
@@ -49,8 +49,9 @@ const Sidebar = () => {
           Reservations
         </NavLink>
         <button
+        onClick={() => setToken("")}
           className="flex items-center px-4 py-2 mt-auto bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700"
-          onClick={() => alert("Logging out...")}
+          
         >
           <FaSignOutAlt className="mr-3" />
           Logout

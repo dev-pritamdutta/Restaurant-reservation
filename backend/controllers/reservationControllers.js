@@ -39,23 +39,55 @@ const getAllReservations = async (req, res) => {
     res.json({ message: "Error fetching reservations" });
   }
 };
-
 const deleteReservation = async (req, res) => {
   try {
     const { id } = req.params;
+
     // Find and delete the reservation
     const deletedReservation = await reservationModels.findByIdAndDelete(id);
 
+    // If no reservation is found, return a 404 response
     if (!deletedReservation) {
-      res.json({ message: "Reservation not found" });
-      return;
+      return res.status(404).json({
+        success: false,
+        message: "Reservation not found",
+      });
     }
 
-    res.json({ message: "Reservation deleted successfully" });
+    // Return success response
+    res.json({
+      success: true,
+      message: "Reservation deleted successfully",
+    });
   } catch (error) {
-    console.error(error);
-    res.json({ message: "Error deleting reservation" });
+    console.error("Error deleting reservation:", error);
+
+    // Return error response
+    res.status(500).json({
+      success: false,
+      message: "Error deleting reservation",
+      error: error.message,
+    });
   }
 };
+// const deleteReservation = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     // Find and delete the reservation
+//     const deletedReservation = await reservationModels.findByIdAndDelete(id);
+
+//     if (!deletedReservation) {
+//       res.json({
+//         success: true,
+//         message: "Reservation deleted successfully",
+//       });
+//     }
+
+//     res.json({ message: "Reservation deleted successfully" });
+//   } catch (error) {
+//     console.error(error);
+//     res.json({ message: "Error deleting reservation" });
+//   }
+// };
 
 export { createReservation, getAllReservations, deleteReservation };

@@ -1,6 +1,9 @@
 import React from "react";
 import upload_img from "../assets/upload_img.png";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { backendUrl } from "../App";
 
 const AddMenu = ({ token }) => {
   const [image, setImage] = useState(null);
@@ -9,13 +12,46 @@ const AddMenu = ({ token }) => {
   const [category, setCategory] = useState("All");
   const [price, setPrice] = useState("");
 
+  const OnSubmitHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      const formData = new FormData();
+      if (image) formData.append("image", image);
+
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("category", category);
+      formData.append("price", price);
+
+      const response = await axios.post(
+        `${backendUrl}/api/product/add`,
+        formData,
+        { headers: { token } }
+      );
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setName("");
+        setDescription("");
+        setCategory("All");
+        setPrice("");
+        setImage(null);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg p-8">
         <h2 className="text-2xl p-5 bg-amber-200 font-bold text-gray-800 text-center mb-6">
           Add Menu Item
         </h2>
-        <form className="space-y-6">
+        <form onSubmit={OnSubmitHandler} className="space-y-6">
           {/* Upload Image */}
           <div>
             <p className="text-sm font-medium text-gray-700 mb-2">

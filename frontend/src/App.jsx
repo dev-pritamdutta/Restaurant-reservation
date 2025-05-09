@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Footer from "./Components/Footer";
 import { ToastContainer } from "react-toastify";
+import ReservationForm from "./Components/ReservationForm";
 
 export const backendUrl = "http://localhost:4000";
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/reservation" element={<ReservationForm />} />
         
       </Routes>
       <Footer/>

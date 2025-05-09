@@ -1,5 +1,6 @@
 import React from "react";
 import bgImg from "../assets/menu4.jpg";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -17,7 +18,7 @@ const Hero = () => {
           Where Luxury meets dinner
           </p>
           <h1 className="mb-5 text-4xl md:text-6xl font-bold uppercase subpixel-antialiased">Chillox Restro</h1>
-          <button className="btn px-10 btn-warning text-black">Book a Table</button>
+          <Link to="/reservation"  className="btn px-10 btn-warning text-black">Book a Table</Link>
         </div>
       </div>
     </div>

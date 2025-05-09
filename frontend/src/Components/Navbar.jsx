@@ -5,19 +5,19 @@ const Navbar = () => {
   const navItems = () => (
     <div className="text-[18px] flex">
       <li>
-        <Link href="/">Home</Link>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <Link href="/about">About</Link>
+        <Link to="/reservation">Reservation</Link>
       </li>
       <li>
-        <Link href="/service">Service</Link>
+        <Link to="/service">Service</Link>
       </li>
       <li>
-        <Link href="/blog">Blog</Link>
+        <Link to="/blog">Blog</Link>
       </li>
       <li>
-        <Link href="/contact">Contact</Link>
+        <Link to="/contact">Contact</Link>
       </li>
     </div>
   );

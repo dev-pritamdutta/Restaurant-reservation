@@ -9,10 +9,12 @@ const AdminTable = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(backendUrl + `/api/reservations/delete/${id}`);
+      const response = await axios.delete(
+        backendUrl + `/api/reservations/delete/${id}`
+      );
       if (response.data.success) {
         toast.success("Reservation deleted successfully!");
-  
+
         // Update the reservations state by filtering out the deleted reservation
         setReservations((prevReservations) =>
           prevReservations.filter((reservation) => reservation._id !== id)
@@ -29,15 +31,22 @@ const AdminTable = () => {
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        const response = await axios.get(backendUrl + "/api/reservations/get");
-        setReservations(response.data.reservations);
-        console.log(response.data.reservations);
+        const response = await axios.get(`${backendUrl}/api/reservations/get`, {
+          headers: { Authorization: `Bearer ${token}` }, // Use Authorization header
+        });
+
+        if (response.data.success) {
+          setReservations(response.data.reservations);
+        } else {
+          toast.error(response.data.message || "Failed to fetch reservations.");
+        }
       } catch (error) {
-        console.log("Error fetching reservations:", error.message);
+        console.error("Error fetching reservations:", error);
+        toast.error("Failed to fetch reservations. Please try again.");
       }
     };
     fetchReservations();
-  }, []);
+  }, [token]);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">

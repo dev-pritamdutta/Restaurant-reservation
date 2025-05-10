@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const reservationSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // Add userId field
   name: { type: String, required: true },
   email: { type: String, required: true },
   phone: { type: String, required: true },
@@ -10,5 +11,3 @@ const reservationSchema = new mongoose.Schema({
 });
 
 export default mongoose.model("Reservation", reservationSchema);
-
-

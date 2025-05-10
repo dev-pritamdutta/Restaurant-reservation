@@ -1,15 +1,15 @@
 import reservationModels from "../models/reservationModels.js";
 const createReservation = async (req, res) => {
   try {
-    console.log(req.body);
     const { name, email, phone, date, time, guests } = req.body;
+    const userId = req.user.id; // Get the logged-in user's ID from the token
+
     if (!name || !email || !phone || !date || !time || !guests) {
-      return res.json({
-        success: false,
-        message: "Please fill all the fields",
-      });
+      return res.status(400).json({ success: false, message: "Please fill all the fields" });
     }
+
     const newReservation = new reservationModels({
+      userId, // Save the userId
       name,
       email,
       phone,
@@ -17,16 +17,13 @@ const createReservation = async (req, res) => {
       time,
       guests,
     });
+
     await newReservation.save();
 
-    res.json({
-      success: true,
-      message: "Reservation created successfully",
-      reservation: newReservation,
-    });
+    res.json({ success: true, message: "Reservation created successfully", reservation: newReservation });
   } catch (error) {
-    console.log(error);
-    res.json({ message: error.message });
+    console.error("Error creating reservation:", error);
+    res.status(500).json({ success: false, message: "Failed to create reservation" });
   }
 };
 
@@ -70,24 +67,15 @@ const deleteReservation = async (req, res) => {
     });
   }
 };
-// const deleteReservation = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     // Find and delete the reservation
-//     const deletedReservation = await reservationModels.findByIdAndDelete(id);
+const getUserReservations = async (req, res) => {
+  try {
+    const userId = req.user.id; // Get the logged-in user's ID from the token
+    const reservations = await reservationModels.find({ userId }); // Filter by userId
+    res.json({ success: true, reservations });
+  } catch (error) {
+    console.error("Error fetching user reservations:", error);
+    res.status(500).json({ success: false, message: "Failed to fetch reservations" });
+  }
+};
 
-//     if (!deletedReservation) {
-//       res.json({
-//         success: true,
-//         message: "Reservation deleted successfully",
-//       });
-//     }
-
-//     res.json({ message: "Reservation deleted successfully" });
-//   } catch (error) {
-//     console.error(error);
-//     res.json({ message: "Error deleting reservation" });
-//   }
-// };
-
-export { createReservation, getAllReservations, deleteReservation };
+export { createReservation, getAllReservations, deleteReservation, getUserReservations };

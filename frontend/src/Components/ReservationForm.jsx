@@ -3,8 +3,11 @@ import React, { useState } from "react";
 import { FaFacebook, FaTwitter, FaInstagram, FaReddit } from "react-icons/fa";
 import { backendUrl } from "../App";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const ReservationForm = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,9 +34,19 @@ const ReservationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Reservation Data:", formData);
     try {
-      await axios.post(backendUrl + "/api/reservations/create", formData);
+      const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+      if (!token) {
+        toast.error("You must be logged in to make a reservation.");
+        return;
+      }
+
+      await axios.post(backendUrl + "/api/reservations/create", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Add the Authorization header
+        },
+      });
+
       toast.success("Reservation made successfully!");
       setFormData({
         name: "",
@@ -42,10 +55,14 @@ const ReservationForm = () => {
         date: new Date().toISOString().slice(0, 10),
         time: "",
         guests: "",
-      })
+      });
+      navigate("/user-dashboard"); // Redirect to User Dashboard
     } catch (error) {
       console.error("Error making reservation:", error);
-      toast.error("Failed to make reservation. Please try again.");
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to make reservation. Please try again."
+      );
     }
   };
 

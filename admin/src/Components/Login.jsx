@@ -17,59 +17,59 @@ const Login = ({ setToken }) => {
 
       if (response.data.success) {
         setToken(response.data.token);
+        toast.success("Login successful!");
       } else {
         toast.error(response.data.message);
       }
     } catch (error) {
       console.log("Login failed:", error);
-      alert("Login failed" + error.message);
+      toast.error("Login failed: " + error.message);
     }
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold text-center text-gray-800">
+    <div
+      className="flex items-center justify-center min-h-screen bg-cover bg-center px-4"
+      style={{
+        backgroundImage: `url('https://i.ibb.co.com/JjS547Q/menu1.jpg')`,
+      }}
+    >
+      <div className="w-full max-w-lg bg-white/20 backdrop-blur-md rounded-2xl shadow-lg p-8">
+        <h2 className="text-4xl font-extrabold text-center text-white mb-6">
           Admin Login
         </h2>
-        <form onSubmit={onSubmitHandler} className="space-y-4">
+        <form onSubmit={onSubmitHandler} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               Email
             </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 mt-1 text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-3 border border-gray-500 bg-gray-800/50 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your email"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
               Password
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 mt-1 text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-3 border border-gray-500 bg-gray-800/50 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your password"
             />
           </div>
           <button
             type="submit"
-            className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
           >
             Login
           </button>
         </form>
-        {/* <p className="text-sm text-center text-gray-600">
-          Forgot your password?{" "}
-          <a href="#" className="text-blue-600 hover:underline">
-            Reset it here
-          </a>
-        </p> */}
       </div>
     </div>
   );

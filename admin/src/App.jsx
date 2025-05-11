@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import Login from "./Components/Login";
 import Sidebar from "./Components/Sidebar";
@@ -12,16 +10,24 @@ import AdminTable from "./pages/AdminTable";
 export const backendUrl = "http://localhost:4000";
 
 const App = () => {
-  const [token, setToken] = useState(() => localStorage.getItem("token") || null);
+  const [token, setToken] = useState(
+    () => localStorage.getItem("token") || null
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) {
-      navigate("/login", { replace: true }); // Use replace to prevent going back to the previous page
+      navigate("/login", { replace: true }); // Redirect to login if no token
     } else {
-      localStorage.setItem("token", token);
+      localStorage.setItem("token", token); // Save token to localStorage
     }
   }, [token, navigate]);
+
+  const handleLogout = () => {
+    setToken(null); // Clear token from state
+    localStorage.removeItem("token"); // Remove token from localStorage
+    navigate("/login", { replace: true }); // Redirect to login
+  };
 
   return (
     <div>
@@ -30,13 +36,12 @@ const App = () => {
         <Login setToken={setToken} />
       ) : (
         <div className="flex">
-          <Sidebar setToken={setToken} />
+          <Sidebar setToken={setToken} onLogout={handleLogout} />
           <div className="flex-grow">
             <Routes>
               <Route path="/add" element={<AddMenu token={token} />} />
               <Route path="/list" element={<ListMenu token={token} />} />
               <Route path="/table" element={<AdminTable token={token} />} />
-              
             </Routes>
           </div>
         </div>

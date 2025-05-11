@@ -1,6 +1,12 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { FaPlus, FaList, FaCalendarAlt, FaSignOutAlt } from "react-icons/fa";
+import { Link, NavLink } from "react-router-dom";
+import {
+  FaHome,
+  FaPlus,
+  FaList,
+  FaCalendarAlt,
+  FaSignOutAlt,
+} from "react-icons/fa";
 
 const Sidebar = ({ setToken }) => {
   return (
@@ -9,6 +15,15 @@ const Sidebar = ({ setToken }) => {
         Admin Panel
       </h2>
       <nav className="flex flex-col p-5 space-y-3">
+        <a
+          href="http://localhost:5173/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white"
+        >
+          <FaHome className="mr-3" />
+          Main Homepage
+        </a>
         <NavLink
           to="/add"
           className={({ isActive }) =>
@@ -49,9 +64,8 @@ const Sidebar = ({ setToken }) => {
           Reservations
         </NavLink>
         <button
-        onClick={() => setToken("")}
+          onClick={() => setToken("")}
           className="flex items-center px-4 py-2 mt-auto bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700"
-          
         >
           <FaSignOutAlt className="mr-3" />
           Logout

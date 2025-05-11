@@ -26,13 +26,13 @@ const Navbar = () => {
           </li>
           <li>
             {/* Redirect Admin Dashboard to the admin panel */}
-            <Link
-              to="http://localhost:5174"
+            <a
+              href="http://localhost:5174/list"
               target="_blank"
               rel="noopener noreferrer"
             >
               Admin Dashboard
-            </Link>
+            </a>
           </li>
           <li>
             <button onClick={handleLogout} className="text-red-500">

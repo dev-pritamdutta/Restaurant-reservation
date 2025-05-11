@@ -1,56 +1,46 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { backendUrl } from "../App";
-import { MdDeleteForever } from "react-icons/md";
 import { toast } from "react-toastify";
 
-const AdminTable = () => {
+const AdminTable = ({ token }) => {
   const [reservations, setReservations] = useState([]);
 
-  const handleDelete = async (id) => {
+  // Fetch reservations
+  const fetchReservations = async () => {
     try {
-      const response = await axios.delete(
-        backendUrl + `/api/reservations/delete/${id}`
-      );
-      if (response.data.success) {
-        toast.success("Reservation deleted successfully!");
-
-        // Update the reservations state by filtering out the deleted reservation
-        setReservations((prevReservations) =>
-          prevReservations.filter((reservation) => reservation._id !== id)
-        );
-      } else {
-        toast.error(response.data.message || "Failed to delete reservation.");
-      }
+      const response = await axios.get(`${backendUrl}/api/reservations/get`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setReservations(response.data.reservations || []); // Set reservations or empty array
     } catch (error) {
-      console.error("Error deleting reservation:", error.message);
-      toast.error("Failed to delete reservation.");
+      console.error("Error fetching reservations:", error);
+      toast.error("Failed to fetch reservations. Please try again.");
     }
   };
 
-  useEffect(() => {
-    const fetchReservations = async () => {
-      try {
-        const response = await axios.get(`${backendUrl}/api/reservations/get`, {
-          headers: { Authorization: `Bearer ${token}` }, // Use Authorization header
-        });
+  // Delete a reservation
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`${backendUrl}/api/reservations/delete/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setReservations((prev) => prev.filter((res) => res._id !== id)); // Remove deleted reservation
+      toast.success("Reservation deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting reservation:", error);
+      toast.error("Failed to delete reservation. Please try again.");
+    }
+  };
 
-        if (response.data.success) {
-          setReservations(response.data.reservations);
-        } else {
-          toast.error(response.data.message || "Failed to fetch reservations.");
-        }
-      } catch (error) {
-        console.error("Error fetching reservations:", error);
-        toast.error("Failed to fetch reservations. Please try again.");
-      }
-    };
+  // Fetch reservations on component mount
+  useEffect(() => {
     fetchReservations();
-  }, [token]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <h2 className="text-3xl mx-auto w-2/5 rounded-xl bg-blue-600 text-white p-5  font-bold text-center  mb-6">
+      <h2 className="text-3xl mx-auto w-2/5 rounded-xl bg-blue-600 text-white p-5 font-bold text-center mb-6">
         Restaurant Reservations
       </h2>
       <div className="overflow-x-auto">
@@ -77,9 +67,9 @@ const AdminTable = () => {
                 </td>
               </tr>
             ) : (
-              reservations.map((res, index) => (
+              reservations.map((res) => (
                 <tr
-                  key={index}
+                  key={res._id}
                   className="border-b hover:bg-blue-300 transition duration-200"
                 >
                   <td className="py-3 px-6 text-gray-800 font-medium">
@@ -93,9 +83,8 @@ const AdminTable = () => {
                   <td className="py-3 px-0">
                     <button
                       onClick={() => handleDelete(res._id)}
-                      className="flex items-center gap-2 text-white cursor-pointer font-medium bg-blue-600 px-3 py-1 rounded-lg transition duration-200"
+                      className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-700"
                     >
-                      <MdDeleteForever size={20} className="text-red-400" />
                       Delete
                     </button>
                   </td>

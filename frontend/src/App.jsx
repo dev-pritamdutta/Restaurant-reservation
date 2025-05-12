@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "./Components/Navbar";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
@@ -7,7 +6,6 @@ import { ToastContainer } from "react-toastify";
 import ReservationForm from "./Components/ReservationForm";
 import Login from "./pages/Login";
 import UserDashboard from "./pages/UserDashboard";
-import AdminDashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import Register from "./pages/Register";
 
@@ -41,14 +39,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/admin-dashboard"
-          element={
-            <ProtectedRoute>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
+        
       </Routes>
       <Footer />
     </div>

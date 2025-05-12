@@ -1,9 +1,12 @@
 import jwt from "jsonwebtoken";
 
 const protect = (req, res, next) => {
+  console.log("Decoded User:", req.user);
   const token = req.headers.authorization?.split(" ")[1]; // Extract token from Authorization header
   if (!token) {
-    return res.status(401).json({ success: false, message: "Not authorized, no token" });
+    return res
+      .status(401)
+      .json({ success: false, message: "Not authorized, no token" });
   }
 
   try {
@@ -11,13 +14,18 @@ const protect = (req, res, next) => {
     req.user = decoded; // Attach user info (id, role) to the request object
     next();
   } catch (error) {
-    res.status(401).json({ success: false, message: "Not authorized, invalid token" });
+    res
+      .status(401)
+      .json({ success: false, message: "Not authorized, invalid token" });
   }
 };
 
 const adminOnly = (req, res, next) => {
+  console.log("Decoded User:", req.user);
   if (req.user.role !== "admin") {
-    return res.status(403).json({ success: false, message: "Access denied, admin only" });
+    return res
+      .status(403)
+      .json({ success: false, message: "Access denied, admin only" });
   }
   next();
 };

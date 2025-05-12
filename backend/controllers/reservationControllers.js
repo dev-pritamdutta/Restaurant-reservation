@@ -5,7 +5,9 @@ const createReservation = async (req, res) => {
     const userId = req.user.id; // Get the logged-in user's ID from the token
 
     if (!name || !email || !phone || !date || !time || !guests) {
-      return res.status(400).json({ success: false, message: "Please fill all the fields" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Please fill all the fields" });
     }
 
     const newReservation = new reservationModels({
@@ -20,20 +22,26 @@ const createReservation = async (req, res) => {
 
     await newReservation.save();
 
-    res.json({ success: true, message: "Reservation created successfully", reservation: newReservation });
+    res.json({
+      success: true,
+      message: "Reservation created successfully",
+      reservation: newReservation,
+    });
   } catch (error) {
     console.error("Error creating reservation:", error);
-    res.status(500).json({ success: false, message: "Failed to create reservation" });
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to create reservation" });
   }
 };
 
-const getAllReservations = async (req, res) => {
+ const getAllReservations = async (req, res) => {
   try {
-    const reservations = await reservationModels.find();
-    res.json({ reservations });
+    const reservations = await reservationModels.find(); // Fetch all reservations
+    res.json({ success: true, reservations });
   } catch (error) {
-    console.error(error);
-    res.json({ message: "Error fetching reservations" });
+    console.error("Error fetching reservations:", error);
+    res.status(500).json({ success: false, message: "Failed to fetch reservations" });
   }
 };
 const deleteReservation = async (req, res) => {
@@ -74,8 +82,15 @@ const getUserReservations = async (req, res) => {
     res.json({ success: true, reservations });
   } catch (error) {
     console.error("Error fetching user reservations:", error);
-    res.status(500).json({ success: false, message: "Failed to fetch reservations" });
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to fetch reservations" });
   }
 };
 
-export { createReservation, getAllReservations, deleteReservation, getUserReservations };
+export {
+  createReservation,
+  getAllReservations,
+  deleteReservation,
+  getUserReservations,
+};

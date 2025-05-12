@@ -20,18 +20,23 @@ const Login = () => {
       );
       const { token, role } = response.data;
 
-      // Save token to localStorage
+      // Debugging logs
+      console.log("Login Response:", response.data);
+
+      // Save token and role to localStorage
       localStorage.setItem("token", token);
+      localStorage.setItem("role", role);
+
+      toast.success("Login successful!");
 
       // Redirect based on role
       if (role === "admin") {
-        navigate("/admin-dashboard");
+        navigate("/");
       } else {
         navigate("/user-dashboard");
       }
-
-      toast.success("Login successful!");
     } catch (error) {
+      console.error("Login Error:", error);
       toast.error(error.response?.data?.message || "Login failed");
     }
   };
@@ -43,8 +48,8 @@ const Login = () => {
         backgroundImage: `url('https://i.ibb.co.com/JjS547Q/menu1.jpg')`,
       }}
     >
-      <div className="w-full max-w-md md:max-w-lg lg:max-w-2xl bg-white/20 backdrop-blur-md rounded-2xl shadow-lg p-6 md:p-8 lg:p-12">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-center text-white mb-6">
+      <div className="w-full max-w-lg bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-8">
+        <h2 className="text-4xl font-extrabold text-center text-white mb-6">
           Welcome Back
         </h2>
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -81,9 +86,9 @@ const Login = () => {
             Login
           </button>
         </form>
-        <p className="text-md text-center text-black mt-6">
+        <p className="text-sm text-center text-gray-400 mt-6">
           Don't have an account?{" "}
-          <a href="/register" className="text-blue-600 hover:underline">
+          <a href="/register" className="text-blue-400 hover:underline">
             Register here
           </a>
         </p>

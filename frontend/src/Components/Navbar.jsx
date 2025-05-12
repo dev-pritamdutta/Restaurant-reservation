@@ -4,9 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role"); // Retrieve the user's role from localStorage
+
+  // Debugging logs
+  console.log("Token:", token);
+  console.log("Role:", role);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("role"); // Remove the role on logout
     navigate("/login");
   };
 
@@ -24,16 +30,17 @@ const Navbar = () => {
           <li>
             <Link to="/user-dashboard">User Dashboard</Link>
           </li>
-          <li>
-            {/* Redirect Admin Dashboard to the admin panel */}
-            <a
-              href="http://localhost:5174/list"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Admin Dashboard
-            </a>
-          </li>
+          {role === "admin" && ( // Only show Admin Dashboard for admin users
+            <li>
+              <a
+                href="http://localhost:5174/list"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Admin Dashboard
+              </a>
+            </li>
+          )}
           <li>
             <button onClick={handleLogout} className="text-red-500">
               Logout
@@ -46,7 +53,7 @@ const Navbar = () => {
             <Link to="/login">Login</Link>
           </li>
           <li>
-            <Link to="/register">Register</Link> {/* Add this line */}
+            <Link to="/register">Register</Link>
           </li>
         </>
       )}

@@ -9,15 +9,21 @@ const AdminTable = ({ token }) => {
   // Fetch reservations
   const fetchReservations = async () => {
     try {
+      const token = localStorage.getItem("token"); // Retrieve the token
       const response = await axios.get(`${backendUrl}/api/reservations/get`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token in the headers
+        },
       });
-      setReservations(response.data.reservations || []); // Set reservations or empty array
+      setReservations(response.data.reservations); // Update state with fetched data
     } catch (error) {
       console.error("Error fetching reservations:", error);
-      toast.error("Failed to fetch reservations. Please try again.");
     }
   };
+
+  useEffect(() => {
+    fetchReservations();
+  }, []);
 
   // Delete a reservation
   const handleDelete = async (id) => {
@@ -32,11 +38,6 @@ const AdminTable = ({ token }) => {
       toast.error("Failed to delete reservation. Please try again.");
     }
   };
-
-  // Fetch reservations on component mount
-  useEffect(() => {
-    fetchReservations();
-  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">

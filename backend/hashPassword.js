@@ -1,5 +1,5 @@
 // hashPassword.js
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const hashPassword = async () => {
   const password = "admin123"; // Replace with your desired admin password

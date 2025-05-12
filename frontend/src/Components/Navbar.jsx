@@ -6,9 +6,10 @@ const Navbar = () => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role"); // Retrieve the user's role from localStorage
 
+
   // Debugging logs
-  console.log("Token:", token);
-  console.log("Role:", role);
+  console.log("Token in Local Storage:", localStorage.getItem("token"));
+  console.log("Role in Local Storage:", localStorage.getItem("role"));
 
   const handleLogout = () => {
     localStorage.removeItem("token");

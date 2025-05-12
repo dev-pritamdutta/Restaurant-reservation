@@ -21,7 +21,6 @@ const protect = (req, res, next) => {
 };
 
 const adminOnly = (req, res, next) => {
-  console.log("Decoded User:", req.user);
   if (req.user.role !== "admin") {
     return res
       .status(403)
@@ -29,5 +28,14 @@ const adminOnly = (req, res, next) => {
   }
   next();
 };
+// const adminOnly = (req, res, next) => {
+//   console.log("Decoded User:", req.user);
+//   if (req.user.role !== "admin") {
+//     return res
+//       .status(403)
+//       .json({ success: false, message: "Access denied, admin only" });
+//   }
+//   next();
+// };
 
 export { protect, adminOnly };

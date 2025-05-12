@@ -15,6 +15,10 @@ const App = () => {
   );
   const navigate = useNavigate();
 
+  // Debugging logs
+  console.log("Token in Local Storage:", localStorage.getItem("token"));
+  console.log("Role in Local Storage:", localStorage.getItem("role"));
+
   useEffect(() => {
     if (!token) {
       navigate("/login", { replace: true }); // Redirect to login if no token

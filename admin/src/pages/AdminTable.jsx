@@ -6,6 +6,10 @@ import { toast } from "react-toastify";
 const AdminTable = ({ token }) => {
   const [reservations, setReservations] = useState([]);
 
+  // Debugging logs
+  console.log("Token in Local Storage:", localStorage.getItem("token"));
+  console.log("Role in Local Storage:", localStorage.getItem("role"));
+
   // Fetch reservations
   const fetchReservations = async () => {
     try {

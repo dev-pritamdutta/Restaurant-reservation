@@ -20,9 +20,6 @@ const Login = () => {
       );
       const { token, role } = response.data;
 
-      // Debugging logs
-      console.log("Login Response:", response.data);
-
       // Save token and role to localStorage
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
@@ -31,7 +28,7 @@ const Login = () => {
 
       // Redirect based on role
       if (role === "admin") {
-        navigate("/");
+        navigate("/admin-dashboard");
       } else {
         navigate("/user-dashboard");
       }

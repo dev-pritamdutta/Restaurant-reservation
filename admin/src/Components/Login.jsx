@@ -10,13 +10,19 @@ const Login = ({ setToken }) => {
   const onSubmitHandler = async (e) => {
     try {
       e.preventDefault();
-      const response = await axios.post(backendUrl + "/api/user/admin", {
+      const response = await axios.post(`${backendUrl}/api/auth/login`, {
         email,
         password,
       });
 
       if (response.data.success) {
-        setToken(response.data.token);
+        const { token, role } = response.data;
+
+        // Save token and role to localStorage
+        localStorage.setItem("token", token);
+        localStorage.setItem("role", role);
+
+        setToken(token); // Update token in state
         toast.success("Login successful!");
       } else {
         toast.error(response.data.message);

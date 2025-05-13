@@ -7,8 +7,8 @@ const Navbar = () => {
   const role = localStorage.getItem("role"); // Retrieve the user's role from localStorage
 
   // Debugging logs
-  console.log("Token in Local Storage:", localStorage.getItem("token"));
-  console.log("Role in Local Storage:", localStorage.getItem("role"));
+  // console.log("Token in Local Storage:", localStorage.getItem("token"));
+  // console.log("Role in Local Storage:", localStorage.getItem("role"));
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -33,7 +33,8 @@ const Navbar = () => {
           {role === "admin" && ( // Only show Admin Dashboard for admin users
             <li>
               <a
-                href="https://restaurant-reservation-sepia.vercel.app"
+                // href="https://restaurant-reservation-sepia.vercel.app"
+                href="http://localhost:5174/"
                 target="_blank"
                 rel="noopener noreferrer"
               >

@@ -6,6 +6,7 @@ import { backendUrl } from "../App";
 
 const ListMenu = ({ token }) => {
   const [list, setList] = useState([]);
+  console.log("Token being sent:", localStorage.getItem("token"));
 
   const fetchList = async () => {
     try {
@@ -30,12 +31,18 @@ const ListMenu = ({ token }) => {
   // for delete functionality
   const deleteItem = async (id) => {
     try {
+      const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+      console.log("Token being sent:", token); // Debugging log
+
       const response = await axios.delete(
         `${backendUrl}/api/product/remove/${id}`,
         {
-          headers: { token },
+          headers: {
+            Authorization: `Bearer ${token}`, // Send the token in the Authorization header
+          },
         }
       );
+
       if (response.data.success) {
         toast.success(response.data.message);
         setList(list.filter((item) => item._id !== id)); // Remove the deleted item from the list

@@ -16,8 +16,8 @@ const App = () => {
   const navigate = useNavigate();
 
   // Debugging logs
-  console.log("Token in Local Storage:", localStorage.getItem("token"));
-  console.log("Role in Local Storage:", localStorage.getItem("role"));
+  // console.log("Token in Local Storage:", localStorage.getItem("token"));
+  // console.log("Role in Local Storage:", localStorage.getItem("role"));
 
   useEffect(() => {
     if (!token) {

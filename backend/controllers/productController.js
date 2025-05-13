@@ -23,13 +23,13 @@ const addProduct = async (req, res) => {
       image: imageUrl,
       date: Date.now(),
     };
-    console.log(productData);
+    // console.log(productData);
     const product = new productModel(productData);
     await product.save();
 
     res.json({ success: true, message: "Product added successfully", product });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.json({ success: false, message: "Can't added product" });
   }
 };
@@ -40,7 +40,7 @@ const listProducts = async (req, res) => {
         const products = await productModel.find({});
         res.json({ success: true, products });
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         res.json({ success: false, message: "Can't get products" });
     }
 };
@@ -54,7 +54,7 @@ const removeProduct = async (req, res) => {
     }
     res.json({ success: true, message: "Product removed successfully" });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.json({ success: false, message: "Server error", error: error.message });
   }
 };

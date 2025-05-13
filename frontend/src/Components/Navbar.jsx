@@ -33,7 +33,7 @@ const Navbar = () => {
           {role === "admin" && ( // Only show Admin Dashboard for admin users
             <li>
               <a
-                href="https://restaurant-reservation-sepia.vercel.app/list"
+                href="https://restaurant-reservation-sepia.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
               >

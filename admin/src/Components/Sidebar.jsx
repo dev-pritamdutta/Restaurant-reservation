@@ -16,7 +16,7 @@ const Sidebar = ({ setToken }) => {
       </h2>
       <nav className="flex flex-col p-5 space-y-3">
         <a
-          href="http://localhost:5173/"
+          href="https://restaurant-reservation-qh7t.vercel.app"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:text-white"

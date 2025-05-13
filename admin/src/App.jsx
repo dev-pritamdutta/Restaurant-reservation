@@ -7,7 +7,7 @@ import AddMenu from "./pages/AddMenu";
 import ListMenu from "./pages/ListMenu";
 import AdminTable from "./pages/AdminTable";
 
-export const backendUrl = "http://localhost:4000";
+export const backendUrl = "https://restaurant-reservation-1-dscy.onrender.com";
 
 const App = () => {
   const [token, setToken] = useState(

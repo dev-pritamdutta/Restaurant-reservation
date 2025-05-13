@@ -19,7 +19,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/register",
+        "https://restaurant-reservation-1-dscy.onrender.com/api/auth/register",
         formData
       );
       if (response.data.success) {

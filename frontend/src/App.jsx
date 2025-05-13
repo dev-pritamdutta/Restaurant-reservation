@@ -9,7 +9,7 @@ import UserDashboard from "./pages/UserDashboard";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import Register from "./pages/Register";
 
-export const backendUrl = "http://localhost:4000";
+export const backendUrl = "https://restaurant-reservation-1-dscy.onrender.com";
 
 const App = () => {
   return (

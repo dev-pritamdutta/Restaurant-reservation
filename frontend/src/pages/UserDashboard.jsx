@@ -10,15 +10,20 @@ const UserDashboard = () => {
   const fetchReservations = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:4000/api/reservations/get-user", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        "https://restaurant-reservation-1-dscy.onrender.com/api/reservations/get-user",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setReservations(response.data.reservations);
       setLoading(false);
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to fetch reservations");
+      toast.error(
+        error.response?.data?.message || "Failed to fetch reservations"
+      );
       setLoading(false);
     }
   };
@@ -47,12 +52,24 @@ const UserDashboard = () => {
           <tbody>
             {reservations.map((reservation) => (
               <tr key={reservation._id}>
-                <td className="border border-gray-300 px-4 py-2">{reservation.name}</td>
-                <td className="border border-gray-300 px-4 py-2">{reservation.email}</td>
-                <td className="border border-gray-300 px-4 py-2">{reservation.phone}</td>
-                <td className="border border-gray-300 px-4 py-2">{reservation.date}</td>
-                <td className="border border-gray-300 px-4 py-2">{reservation.time}</td>
-                <td className="border border-gray-300 px-4 py-2">{reservation.guests}</td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {reservation.name}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {reservation.email}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {reservation.phone}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {reservation.date}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {reservation.time}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {reservation.guests}
+                </td>
               </tr>
             ))}
           </tbody>

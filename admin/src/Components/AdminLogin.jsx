@@ -14,7 +14,7 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:4000/api/auth/login", formData);
+      const response = await axios.post("https://restaurant-reservation-1-dscy.onrender.com/api/auth/login", formData);
       const { token, role } = response.data;
 
       if (role !== "admin") {

@@ -32,7 +32,7 @@ const ListMenu = ({ token }) => {
   const deleteItem = async (id) => {
     try {
       const token = localStorage.getItem("token"); // Retrieve the token from localStorage
-      console.log("Token being sent:", token); // Debugging log
+      // console.log("Token being sent:", token); // Debugging log
 
       const response = await axios.delete(
         `${backendUrl}/api/product/remove/${id}`,

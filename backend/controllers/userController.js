@@ -2,9 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 
-// Admin Login
-// Admin Login
-// Admin Login
+
 const adminLogin = async (req, res) => {
   try {
     const { email, password } = req.body;

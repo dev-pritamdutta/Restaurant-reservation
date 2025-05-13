@@ -64,9 +64,7 @@ const Menu = () => {
                       </span>
                     </div>
                   </div>
-                  <p className="text-gray-600 text-sm">
-                    Lorem ipsum dolor sit amet!
-                  </p>
+
                 </div>
               </div>
             ))

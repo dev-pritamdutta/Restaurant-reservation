@@ -14,6 +14,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      localStorage.removeItem("token");
+      localStorage.removeItem("role");
       const response = await axios.post(
         "https://restaurant-reservation-1-dscy.onrender.com/api/auth/login",
         formData

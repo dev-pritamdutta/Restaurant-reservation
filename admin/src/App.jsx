@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Login from "./Components/Login";
 import Sidebar from "./Components/Sidebar";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import AddMenu from "./pages/AddMenu";
 import ListMenu from "./pages/ListMenu";
@@ -43,6 +43,7 @@ const App = () => {
           <Sidebar setToken={setToken} onLogout={handleLogout} />
           <div className="flex-grow">
             <Routes>
+              <Route path="/" element={<Navigate to="/list" replace />} />
               <Route path="/add" element={<AddMenu token={token} />} />
               <Route path="/list" element={<ListMenu token={token} />} />
               <Route path="/table" element={<AdminTable token={token} />} />

@@ -2,10 +2,13 @@
 🍽️ Restaurant Reservation Web App
 🔗 Live Site (User Side): restaurant-reservation-qh7t.vercel.app
 🔗 Admin Panel: restaurant-reservation-sepia.vercel.app/list
-</br>
+</br></br>
 for admin-Login:
+</br>
 email: demoadmin@gmail.com
+</br>
 password: admin123
+</br>
 </br>
 📌 Project Overview:
 A full-stack restaurant reservation system that allows users to book tables online and provides an admin dashboard for managing bookings efficiently. The platform is designed with a clean UI, seamless form submission, and role-based access control.

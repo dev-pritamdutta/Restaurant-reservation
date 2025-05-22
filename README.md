@@ -1,7 +1,14 @@
 ﻿# Restaurant-reservation
 🍽️ Restaurant Reservation Web App
-🔗 Live Site (User Side): restaurant-reservation-qh7t.vercel.app
-🔗 Admin Panel: restaurant-reservation-sepia.vercel.app/list
+</br>
+<a>
+https://restaurant-reservation-qh7t.vercel.app/
+</a>
+</br>
+<a>
+https://restaurant-reservation-sepia.vercel.app/list
+</a>
+
 </br></br>
 for admin-Login:
 </br>
